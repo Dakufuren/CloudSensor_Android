@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     SensorHandler sh;
+    LocationHandler lh;
 
     @Override
     public final void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sh = new SensorHandler(this);
+
+        //LocationHandler not functional yet
+        lh = new LocationHandler(this);
     }
 
     @Override

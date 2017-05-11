@@ -50,6 +50,7 @@ public class SensorHandler implements SensorEventListener{
 
     public void regListener() {
         //Registers the listener in onResume -> MainAcitivity
+        //SENSOR_DELAY_NORMAL: rate (default) suitable for screen orientation changes
         mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
