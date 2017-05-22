@@ -39,7 +39,11 @@ public class LocationHandler implements LocationListener {
 
     public LocationHandler(Context context) {
         this.mContext = context;
-        mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager = (LocationManager) mContext
+                .getSystemService(Context.LOCATION_SERVICE);
+
+        isGPSEnabled = mLocationManager
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
         try{
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,

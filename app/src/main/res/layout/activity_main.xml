@@ -14,4 +14,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+
+    <TextView
+        android:id="@+id/gpsTextStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:layout_below="@+id/accelText"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/gpsLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:layout_below="@+id/gpsTextStatus"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp" />
+
+    <Button
+        android:id="@+id/btnShowLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:text="Button"
+        android:layout_below="@+id/gpsLocation"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
