@@ -30,12 +30,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        //Register sensor Listener on application resume
         sh.regListener();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
+        //Unregister sensor listener on application pause
         sh.unregListerner();
     }
 }
