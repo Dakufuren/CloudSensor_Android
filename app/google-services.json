@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "232858626298",
+    "project_id": "cloudappsignin"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232858626298:android:d50cda9d0fc38680",
+        "android_client_info": {
+          "package_name": "example.comtest.cloudsensor_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232858626298-g9i4egtmrmodtlhikuhl8ffsc31b0uh9.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "232858626298-hemhl3jlt8anv66ab3p9em65sa9mlus9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "example.comtest.cloudsensor_android",
+            "certificate_hash": "8fb9296737b20c5a48ab3a7179cc28dbad245f8d"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9yXjkkdp7TSip3npFtVLeqXpZWAhFpik"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
