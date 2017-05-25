@@ -9,36 +9,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="example.comtest.cloudsensor_android.MainActivity">
 
-    <TextView
-        android:id="@+id/accelText"
+    <Button
+        android:id="@+id/btnAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-
-    <TextView
-        android:id="@+id/gpsTextStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_below="@+id/accelText"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp" />
-
-    <TextView
-        android:id="@+id/gpsLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_below="@+id/gpsTextStatus"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp" />
+        android:text="ActionActivity"
+        android:layout_alignBottom="@+id/btnLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="74dp" />
 
     <Button
-        android:id="@+id/btnShowLocation"
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:text="Button"
-        android:layout_below="@+id/gpsLocation"
-        android:layout_alignParentStart="true" />
+        android:text="LoginActivity"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
