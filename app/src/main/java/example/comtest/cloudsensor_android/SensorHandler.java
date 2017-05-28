@@ -33,6 +33,7 @@ public class SensorHandler implements SensorEventListener{
         //Init the SensorManager with the Context from MainActivity
         mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
     }
 
     @Override
@@ -42,6 +43,8 @@ public class SensorHandler implements SensorEventListener{
 
     @Override
     public final void onSensorChanged(SensorEvent event) {
+
+
         // ((Activity)mContext) use that to point at the TextView from MainActivity
         accelText = (TextView)((Activity)mContext).findViewById(R.id.accelText);
 
@@ -52,7 +55,7 @@ public class SensorHandler implements SensorEventListener{
     public void regListener() {
         //Registers the listener in onResume -> MainAcitivity
         //SENSOR_DELAY_NORMAL: rate (default) suitable for screen orientation changes
-        mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mAccel, 5000000);
 
         isAccelListenerEnabled = true;
     }

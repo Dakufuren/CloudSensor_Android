@@ -2,6 +2,8 @@ package example.comtest.cloudsensor_android;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -27,44 +29,52 @@ import java.util.Map;
 public class PostAccelData {
 
     String response;
-    private RequestQueue requestQueue;
+
     private JsonObjectRequest request2;
     private StringRequest stringRequest;
-    private static String URL = "http://10.0.2.2:64623/api/Accelerometer/PostCollection";
+    private static String URL = "http://datacollectapi20170528075302.azurewebsites.net/api/Accelerometer/PostCollection";
     Context context;
-
+    RequestQueue requestQueue = Volley.newRequestQueue(this.context);
 
     public PostAccelData(Context context) {
         this.context = context;
 
     }
-    public String postToServer(final String id, final String owner, final String[] x, final String[] y, final String[] z){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        System.out.println("Message: " + response);
-                    }
+    public void postToServer(final String id, final String owner, final String[] x, final String[] y, final String[] z){
+        try {
+            HashMap<String, String> params = new HashMap<String, String>();
+            params.put("id", id.toString());
+            params.put("owner", owner.toString());
+            params.put("x", null);
+            params.put("y", null);
+            params.put("z", null);
+
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, URL, new JSONObject(params),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                if (response.names().get(0).equals("success")) {
+
+
+                                } else {
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.e("Error: ", error.getMessage());
                 }
+            });
 
-                , new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+            requestQueue.add(req);
+        }
+        catch(Exception e){
 
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id", id);
-                params.put("Owner", owner);
-
-                return params;
-            }
-        };
-
-        requestQueue.add(stringRequest);
-
-        return response;
+        }
     }
 }
