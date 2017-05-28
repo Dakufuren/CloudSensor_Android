@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".loginActivity" />
+        <activity android:name=".VolleyTestActivity"></activity>
         <activity android:name=".ActionActivity"></activity>
     </application>
 
