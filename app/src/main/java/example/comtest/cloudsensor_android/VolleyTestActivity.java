@@ -27,28 +27,35 @@ import java.util.HashMap;
  * Created by optimus prime on 2017-05-27.
  */
 
-public class VolleyTestActivity extends AppCompatActivity {
+public class VolleyTestActivity extends AppCompatActivity implements  MyCallBack{
 
     private TextView resultView;
     private Button sendButton;
     private Button postButton;
     private String id;
-    private String owner = "Axel";
-    private  double[] x ={1.0,2.0};
-    private double[] y ={1.0,2.0};
-    private double[] z ={1.0,2.0};
+    private String owner = "Fredde";
+    private  double[] x ={12.0,23.0};
+    private double[] y ={12.0,12.0};
+    private double[] z ={12.0,44.0};
+    //MyCallBack mCallBack = null;
 
     @Override
-    public final void onCreate(Bundle savedInstanceState) {
+    public final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.volley_test);
         resultView = (TextView) findViewById(R.id.resView);
         sendButton = (Button) findViewById(R.id.bn_send);
         postButton =  (Button) findViewById(R.id.bn_post);
+
+
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendRequest();
+                //sendRequest();
+                PostAccelData pad = new PostAccelData(getApplicationContext());
+                pad.sendRequest();
+                //resultView.setText(response);
 
 
             }
@@ -57,7 +64,9 @@ public class VolleyTestActivity extends AppCompatActivity {
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postToServer(owner,x,y,z);
+                //postToServer(owner,x,y,z);
+                PostAccelData pad = new PostAccelData(getApplicationContext());
+                pad.postToServer(owner, x, y, z);
             }
         });
 
@@ -129,5 +138,10 @@ public class VolleyTestActivity extends AppCompatActivity {
             catch(Exception e){
 
             }
+    }
+
+    @Override
+    public void UpdateMyText(String message) {
+        resultView.setText(message);
     }
 }
