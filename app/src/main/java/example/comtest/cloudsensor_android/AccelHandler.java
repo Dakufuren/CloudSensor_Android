@@ -1,17 +1,15 @@
 package example.comtest.cloudsensor_android;
 
 import android.app.Activity;
-import android.app.Service;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.TextView;
 import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 /**
@@ -26,6 +24,9 @@ public class AccelHandler implements SensorEventListener{
     private Boolean isAccelListenerEnabled = false;
     private TextView accelText;
     private TextView listenText;
+    private ArrayList<Double> xList;
+    private ArrayList<Double> yList;
+    private ArrayList<Double> zList;
 
     public AccelHandler(Context context){
         this.mContext = context;
@@ -34,6 +35,9 @@ public class AccelHandler implements SensorEventListener{
         mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        xList = new ArrayList<>();
+        yList = new ArrayList<>();
+        zList = new ArrayList<>();
     }
 
     @Override
@@ -50,12 +54,15 @@ public class AccelHandler implements SensorEventListener{
 
         //ADD: IF STATEMENT Sensor exists
         accelText.setText("X :" + event.values[0] + " Y :" + event.values[1] + " Z :" + event.values[2]);
+        getxList().add(event.values[0]);
+        getyList().add(event.values[1]);
+        getzList().add(event.values[2]);
     }
 
     public void regListener() {
         //Registers the listener in onResume -> MainAcitivity
         //SENSOR_DELAY_NORMAL: rate (default) suitable for screen orientation changes
-        mSensorManager.registerListener(this, mAccel, 5000000);
+        mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_NORMAL);
 
         isAccelListenerEnabled = true;
     }
@@ -70,5 +77,24 @@ public class AccelHandler implements SensorEventListener{
     public boolean getAccelListenerStatus(){
 
         return isAccelListenerEnabled;
+    }
+
+    public ArrayList getxList() {
+        return xList;
+    }
+
+    public ArrayList getyList() {
+        return yList;
+    }
+
+    public ArrayList getzList() {
+        return zList;
+    }
+
+    public Double[] convertArrayList(ArrayList<Double> tempArrayList) {
+        int arrSize = tempArrayList.size();
+        Double[] tempArr = tempArrayList.toArray(new Double[tempArrayList.size()]);
+
+        return tempArr;
     }
 }
