@@ -9,11 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class ActionActivity extends AppCompatActivity {
 
-    SensorHandler sh;
+    AccelHandler sh;
     LocationHandler lh;
     TextView accelText;
     TextView locationText;
@@ -28,7 +26,7 @@ public class ActionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action);
 
-        sh = new SensorHandler(this);
+        sh = new AccelHandler(this);
         lh = new LocationHandler(this);
 
         final Button btnAccel = (Button) findViewById(R.id.btnAccel);
