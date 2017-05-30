@@ -11,7 +11,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -24,16 +32,20 @@ import com.google.android.gms.common.api.Result;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by optimus prime on 2017-05-22.
  */
 
 public class loginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
+    private Button signInLocal;
     private LinearLayout ProfSection;
     private Button SignOut;
     private SignInButton SignIn;
-    private TextView Name, Email;
+    private TextView Name, Email, mail, pass;
     private ImageView Prof_Pic;
     private GoogleApiClient googleApiClient;
     private static final int REQ_CODE = 9001;
@@ -47,10 +59,14 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         SignOut = (Button)findViewById(R.id.bn_logout);
         SignIn = (SignInButton)findViewById(R.id.bn_login);
         Name = (TextView)findViewById(R.id.name);
+        mail = (TextView)findViewById(R.id.mail);
+        pass = (TextView)findViewById(R.id.password);
         Email = (TextView)findViewById(R.id.email);
         Prof_Pic = (ImageView)findViewById(R.id.prof_pic);
+        signInLocal = (Button) findViewById(R.id.loginLocal);
         SignIn.setOnClickListener(this);
         SignOut.setOnClickListener(this);
+        signInLocal.setOnClickListener(this);
 
         ProfSection.setVisibility(View.GONE);
 
@@ -71,6 +87,10 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.bn_logout:
                 signOut();
                 break;
+            case R.id.loginLocal:
+                sendRequest();
+                break;
+
 
         }
 
@@ -120,6 +140,35 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         else {
             updateUI(false);
         }
+    }
+
+    public void sendRequest(){
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String JSON_URL = "http://datacollectapi20170528075302.azurewebsites.net/api/User/Login?mail=" + mail.getText().toString() +"&" +"password=" + pass.getText().toString();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+
+                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                }) ;
+
+
+
+
+        requestQueue.add(stringRequest);
     }
 
     private void updateUI(boolean isLogin) {

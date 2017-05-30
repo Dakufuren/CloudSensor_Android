@@ -30,10 +30,19 @@
         android:id="@+id/btnVolleyTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
-        android:text="Button"
         android:layout_below="@+id/btnAction"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp"
+        android:text="Post Acc" />
+
+    <Button
+        android:id="@+id/btn_reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/btnVolleyTest"
+        android:layout_below="@+id/btnVolleyTest"
+        android:layout_marginTop="26dp"
+        android:text="Register user" />
 
 
 </RelativeLayout>
