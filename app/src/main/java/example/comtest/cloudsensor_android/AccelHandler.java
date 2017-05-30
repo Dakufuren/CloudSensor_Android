@@ -18,7 +18,7 @@ import android.hardware.SensorManager;
  * Created by AlbinSkola on 2017-05-10.
  */
 
-public class SensorHandler implements SensorEventListener{
+public class AccelHandler implements SensorEventListener{
 
     private SensorManager mSensorManager;
     private Sensor mAccel;
@@ -27,7 +27,7 @@ public class SensorHandler implements SensorEventListener{
     private TextView accelText;
     private TextView listenText;
 
-    public SensorHandler(Context context){
+    public AccelHandler(Context context){
         this.mContext = context;
 
         //Init the SensorManager with the Context from MainActivity
