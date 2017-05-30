@@ -13,6 +13,7 @@ public class ActionActivity extends AppCompatActivity {
 
     AccelHandler sh;
     LocationHandler lh;
+    HeartbeatHandler hh;
     TextView accelText;
     TextView heartText;
     TextView locationText;
@@ -29,7 +30,9 @@ public class ActionActivity extends AppCompatActivity {
 
         sh = new AccelHandler(this);
         lh = new LocationHandler(this);
+        hh = new HeartbeatHandler(this);
 
+        final Button btnHeart = (Button) findViewById(R.id.btnHeartbeat);
         final Button btnAccel = (Button) findViewById(R.id.btnAccel);
         final Button btnLocation = (Button) findViewById(R.id.btnLocation);
         accelText = (TextView) findViewById(R.id.accelText);
@@ -64,6 +67,22 @@ public class ActionActivity extends AppCompatActivity {
                     btnLocation.setText("Enable Location");
                     locationText.setText("Location Data");
                 }
+            }
+        });
+
+        btnHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(hh.getHeartListenerStatus()==false){
+                    hh.regListener();
+                    btnHeart.setText("Disable Heart rate monitor");
+                }else{
+                    hh.unregListerner();
+                    btnHeart.setText("Enable Heart rate monitor");
+                    heartText.setText("Heart rate data");
+                }
+
             }
         });
     }

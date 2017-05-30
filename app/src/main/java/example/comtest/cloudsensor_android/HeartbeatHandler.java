@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.TextView;
 
+
 /**
  * Created by Sebastian on 2017-05-30.
  */
@@ -61,7 +62,7 @@ public class HeartbeatHandler implements SensorEventListener {
         isHeartListenerEnabled = false;
     }
 
-    public boolean getAccelListenerStatus(){
+    public boolean getHeartListenerStatus(){
 
         return isHeartListenerEnabled;
     }
