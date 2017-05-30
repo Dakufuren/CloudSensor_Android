@@ -42,7 +42,7 @@ public class PostAccelData {
 
     public PostAccelData(Context context) {
         this.context = context;
-        this.mCallBack = (MyCallBack) this.context;
+        //this.mCallBack = ((Activity)MyCallBackthis.context;
 
     }
     public void postToServer( final String owner, final double[] x, final double[] y, final double[] z){

@@ -24,6 +24,8 @@
         <activity android:name=".loginActivity" />
         <activity android:name=".VolleyTestActivity"></activity>
         <activity android:name=".ActionActivity"></activity>
+
+        <activity android:name=".RegisterUserActivity"></activity>
     </application>
 
 </manifest>

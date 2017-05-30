@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Confirm Password"
-        android:inputType="numberPassword" />
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/weight"
