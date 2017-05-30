@@ -14,6 +14,7 @@ public class ActionActivity extends AppCompatActivity {
     AccelHandler sh;
     LocationHandler lh;
     TextView accelText;
+    TextView heartText;
     TextView locationText;
     Context mContext;
     /**
@@ -33,6 +34,7 @@ public class ActionActivity extends AppCompatActivity {
         final Button btnLocation = (Button) findViewById(R.id.btnLocation);
         accelText = (TextView) findViewById(R.id.accelText);
         locationText = (TextView) findViewById(R.id.locationText);
+        heartText = (TextView) findViewById(R.id.heartText);
 
         btnAccel.setOnClickListener(new View.OnClickListener() {
             @Override
