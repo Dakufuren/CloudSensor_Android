@@ -68,20 +68,6 @@ public class LocationHandler implements LocationListener {
         this.mContext = context;
         mLocationManager = (LocationManager) mContext
                 .getSystemService(Context.LOCATION_SERVICE);
-
-
-        //Check Permission
-        if(requestLocationPermission()==true) {
-            try{
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    MIN_TIME_BW_UPDATES,
-                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-            }catch(SecurityException ex){
-                String msg = "SecurityException";
-
-                Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
-            }
-        }
     }
 
     public void regListener(){
