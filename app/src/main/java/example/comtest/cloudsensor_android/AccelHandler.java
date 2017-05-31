@@ -7,9 +7,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.TextView;
 import android.content.Context;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import android.widget.Toast;
 
 
 /**
@@ -24,9 +22,12 @@ public class AccelHandler implements SensorEventListener{
     private Boolean isAccelListenerEnabled = false;
     private TextView accelText;
     private TextView listenText;
-    private ArrayList<Double> xList;
-    private ArrayList<Double> yList;
-    private ArrayList<Double> zList;
+    private int INDEX_SIZE = 100;
+    private int count = 0;
+    private double[] xArr = new double[INDEX_SIZE];
+    private double[] yArr = new double[INDEX_SIZE];
+    private double[] zArr = new double[INDEX_SIZE];
+
 
     public AccelHandler(Context context){
         this.mContext = context;
@@ -34,10 +35,6 @@ public class AccelHandler implements SensorEventListener{
         //Init the SensorManager with the Context from MainActivity
         mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-        xList = new ArrayList<>();
-        yList = new ArrayList<>();
-        zList = new ArrayList<>();
     }
 
     @Override
@@ -54,9 +51,18 @@ public class AccelHandler implements SensorEventListener{
 
         //ADD: IF STATEMENT Sensor exists
         accelText.setText("X :" + event.values[0] + " Y :" + event.values[1] + " Z :" + event.values[2]);
-        getxList().add(event.values[0]);
-        getyList().add(event.values[1]);
-        getzList().add(event.values[2]);
+
+        if(count<INDEX_SIZE) {
+            xArr[count] = event.values[0];
+            yArr[count] = event.values[1];
+            zArr[count] = event.values[2];
+            count++;
+        }else{
+            Toast.makeText(mContext, "POSTING ACCEL DATA", Toast.LENGTH_SHORT).show();
+            PostData pad = new PostData(mContext);
+            pad.postAccel("Albin", xArr, yArr, zArr);
+            count = 0;
+        }
     }
 
     public void regListener() {
@@ -79,22 +85,15 @@ public class AccelHandler implements SensorEventListener{
         return isAccelListenerEnabled;
     }
 
-    public ArrayList getxList() {
-        return xList;
+    public double[] getxArr() {
+        return xArr;
     }
 
-    public ArrayList getyList() {
-        return yList;
+    public double[] getyArr() {
+        return yArr;
     }
 
-    public ArrayList getzList() {
-        return zList;
-    }
-
-    public Double[] convertArrayList(ArrayList<Double> tempArrayList) {
-        int arrSize = tempArrayList.size();
-        Double[] tempArr = tempArrayList.toArray(new Double[tempArrayList.size()]);
-
-        return tempArr;
+    public double[] getzArr() {
+        return zArr;
     }
 }

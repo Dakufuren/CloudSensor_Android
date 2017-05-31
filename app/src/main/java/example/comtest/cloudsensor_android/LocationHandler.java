@@ -1,7 +1,5 @@
 package example.comtest.cloudsensor_android;
 
-import android.*;
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -12,12 +10,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,14 +45,20 @@ public class LocationHandler implements LocationListener {
     boolean canGetLocation = false;
 
     Location location; // location
+
     double latitude; // latitude
     double longitude; // longitude
+    private int INDEX_SIZE = 20;
+    private int count = 0;
+    private double[] latArr = new double[INDEX_SIZE];
+    private double[] longArr = new double[INDEX_SIZE];
+
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 5 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 10 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 5000; // 10sec
 
     // Declaring a Location Manager
     protected LocationManager mLocationManager;
@@ -131,6 +133,17 @@ public class LocationHandler implements LocationListener {
 
         latitude = location.getLatitude();
         longitude = location.getLongitude();
+
+        if(count<INDEX_SIZE){
+            latArr[count] = latitude;
+            longArr[count] = longitude;
+            count++;
+        }else{
+            Toast.makeText(mContext, "POSTING LOCATION DATA", Toast.LENGTH_SHORT).show();
+            PostData pad = new PostData(mContext);
+            pad.postLocation("Albin", latArr, longArr);
+            count = 0;
+        }
 
         String tmpLat = Double.toString(latitude);
         String tmpLong = Double.toString(longitude);

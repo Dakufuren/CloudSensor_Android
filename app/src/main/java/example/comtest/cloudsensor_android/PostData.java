@@ -28,30 +28,63 @@ import java.util.Map;
  * Created by optimus prime on 2017-05-27.
  */
 
-public class PostAccelData {
+public class PostData {
 
     String response;
 
     private JsonObjectRequest request2;
     private StringRequest stringRequest;
-    String URL = "http://datacollectapi20170528075302.azurewebsites.net/api/Accelerometer/PostCollection";
     Context context;
     String finalResponse = "";
     MyCallBack mCallBack;
     //RequestQueue requestQueue = Volley.newRequestQueue(this.context);
 
-    public PostAccelData(Context context) {
+    public PostData(Context context) {
         this.context = context;
         //this.mCallBack = ((Activity)MyCallBackthis.context;
 
     }
-    public void postToServer( final String owner, final double[] x, final double[] y, final double[] z){
+    public void postLocation( final String owner, final double[] latitude, final double[] longitude){
+        String URL = "http://datacollectapi20170528075302.azurewebsites.net/api/Location/PostCollection";
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         try {
             JSONObject jsObj = new JSONObject();
 
+            jsObj.put("owner", owner);
+            JSONArray latList = new JSONArray(latitude);
+            JSONArray longList = new JSONArray(longitude);
+            jsObj.put("latitude", latList);
+            jsObj.put("longitude", longList);
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, URL, jsObj,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Toast.makeText(context,"Posted:" + owner,Toast.LENGTH_LONG).show();
+                            } catch (Exception e) {
+                                Toast.makeText(context,e.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.e("Error: ", error.getMessage());
+                }
+            });
+            requestQueue.add(req);
+        }
+        catch(Exception e){
 
+        }
+    }
+
+    public void postAccel( final String owner, final double[] x, final double[] y, final double[] z){
+        String URL = "http://datacollectapi20170528075302.azurewebsites.net/api/Accelerometer/PostCollection";
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        try {
+            JSONObject jsObj = new JSONObject();
 
             jsObj.put("owner", owner);
             JSONArray xList = new JSONArray(x);
@@ -65,10 +98,7 @@ public class PostAccelData {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-
-
                                 Toast.makeText(context,"Posted:" + owner,Toast.LENGTH_LONG).show();
-
                             } catch (Exception e) {
                                 Toast.makeText(context,e.toString(),Toast.LENGTH_LONG).show();
                             }
@@ -79,7 +109,6 @@ public class PostAccelData {
                     VolleyLog.e("Error: ", error.getMessage());
                 }
             });
-
             requestQueue.add(req);
         }
         catch(Exception e){

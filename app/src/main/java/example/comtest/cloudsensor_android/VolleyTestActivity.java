@@ -17,11 +17,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * Created by optimus prime on 2017-05-27.
@@ -53,7 +49,7 @@ public class VolleyTestActivity extends AppCompatActivity implements  MyCallBack
             @Override
             public void onClick(View view) {
                 //sendRequest();
-                PostAccelData pad = new PostAccelData(getApplicationContext());
+                PostData pad = new PostData(getApplicationContext());
                 pad.sendRequest();
                 //resultView.setText(response);
 
@@ -65,8 +61,8 @@ public class VolleyTestActivity extends AppCompatActivity implements  MyCallBack
             @Override
             public void onClick(View view) {
                 //postToServer(owner,x,y,z);
-                PostAccelData pad = new PostAccelData(getApplicationContext());
-                pad.postToServer(owner, x, y, z);
+                PostData pad = new PostData(getApplicationContext());
+                pad.postAccel(owner, x, y, z);
             }
         });
 
