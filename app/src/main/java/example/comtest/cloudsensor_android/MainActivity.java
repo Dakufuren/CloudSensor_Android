@@ -23,10 +23,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(getApplicationContext(), loginActivity.class);
+        startActivity(intent);
+
+        /*
         Button btnAction = (Button) findViewById(R.id.btnAction);
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
         Button btnVolley = (Button) findViewById(R.id.btnVolleyTest);
         Button btnRegister = (Button) findViewById(R.id.btn_reg);
+
+
 
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,5 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        */
     }
 }
