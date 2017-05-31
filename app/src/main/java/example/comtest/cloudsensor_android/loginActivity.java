@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -44,6 +45,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     private Button signInLocal;
     private LinearLayout ProfSection;
     private Button SignOut;
+    private Button btnReg;
     private SignInButton SignIn;
     private TextView Name, Email, mail, pass;
     private ImageView Prof_Pic;
@@ -57,6 +59,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.login);
         ProfSection = (LinearLayout)findViewById(R.id.prof_section);
         SignOut = (Button)findViewById(R.id.bn_logout);
+        btnReg = (Button)findViewById(R.id.btnRegister);
         SignIn = (SignInButton)findViewById(R.id.bn_login);
         Name = (TextView)findViewById(R.id.name);
         mail = (TextView)findViewById(R.id.mail);
@@ -67,6 +70,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         SignIn.setOnClickListener(this);
         SignOut.setOnClickListener(this);
         signInLocal.setOnClickListener(this);
+        btnReg.setOnClickListener(this);
 
         ProfSection.setVisibility(View.GONE);
 
@@ -83,15 +87,15 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.bn_login:
                 signIn();
                 break;
-
             case R.id.bn_logout:
                 signOut();
                 break;
             case R.id.loginLocal:
                 sendRequest();
                 break;
-
-
+            case R.id.btnRegister:
+                sendToRegisterUser();
+                break;
         }
 
     }
@@ -99,6 +103,11 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    private void sendToRegisterUser(){
+        Intent intent = new Intent(this, RegisterUserActivity.class);
+        startActivity(intent);
     }
 
     private void signIn() {
@@ -130,6 +139,10 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             GoogleSignInAccount account = result.getSignInAccount();
             String name = account.getDisplayName();
             String email = account.getEmail();
+
+            //Save to SharedPrefs
+            PreferenceManager.getDefaultSharedPreferences(this).edit().putString("EMAIL", email).commit();
+
             //String img_url = account.getPhotoUrl().toString();
             Name.setText(name);
             Email.setText(email);
@@ -151,7 +164,10 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onResponse(String response) {
 
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        String tmpMail =  mail.getText().toString();
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("EMAIL", tmpMail).commit();
+
+                        Intent intent = new Intent(getApplicationContext(), ActionActivity.class);
                         startActivity(intent);
 
                         Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
@@ -175,8 +191,10 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
 
         //OM LOGGAS IN SÅ VISAS PROFILDELEN OCH INLOGINKNAPPEN BLIR BORTTAGEN
         if (isLogin) {
-            ProfSection.setVisibility(View.VISIBLE);
-            SignIn.setVisibility(View.GONE);
+            Intent intent = new Intent(this, ActionActivity.class);
+            startActivity(intent);
+            //ProfSection.setVisibility(View.VISIBLE);
+            //SignIn.setVisibility(View.GONE);
         }
         //OM MAN LOGGAR UT SÅ VISAS INTE PROFILEN LÄNGRE UTAN BARA INLOGGNINGSKNAPPEN
         else {

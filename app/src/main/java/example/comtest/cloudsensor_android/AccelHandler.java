@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.preference.PreferenceManager;
 import android.widget.TextView;
 import android.content.Context;
 import android.widget.Toast;
@@ -60,7 +61,10 @@ public class AccelHandler implements SensorEventListener{
         }else{
             Toast.makeText(mContext, "POSTING ACCEL DATA", Toast.LENGTH_SHORT).show();
             PostData pad = new PostData(mContext);
-            pad.postAccel("Albin", xArr, yArr, zArr);
+
+            String loggedEmail = PreferenceManager.getDefaultSharedPreferences(mContext).getString("EMAIL", "FAILED");
+
+            pad.postAccel(loggedEmail, xArr, yArr, zArr);
             count = 0;
         }
     }
