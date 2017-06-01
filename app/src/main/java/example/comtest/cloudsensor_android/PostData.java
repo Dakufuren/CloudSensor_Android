@@ -117,7 +117,7 @@ public class PostData {
     }
 
     public void postHeartrate( final String owner, final double[] h){
-        String URL = "http://datacollectapi20170528075302.azurewebsites.net/api/Accelerometer/PostCollection";
+        String URL = "http://datacollectapi20170528075302.azurewebsites.net/api/Heartrate/PostCollection";
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         try {

@@ -6,7 +6,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.preference.PreferenceManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -20,6 +22,9 @@ public class HeartbeatHandler implements SensorEventListener {
     private Context mContext;
     private Boolean isHeartListenerEnabled = false;
     private TextView heartText;
+    private int INDEX_SIZE = 20;
+    private double[] hArr = new double[INDEX_SIZE];
+    private int count = 0;
 
 
     public HeartbeatHandler(Context context){
@@ -45,6 +50,20 @@ public class HeartbeatHandler implements SensorEventListener {
 
         //ADD: IF STATEMENT Sensor exists
         heartText.setText("Heart data: " + event.values[0]);
+
+        if(count<INDEX_SIZE) {
+
+            hArr[count] = event.values[0];
+            count++;
+        }else {
+
+            Toast.makeText(mContext, "POSTING HEARTRATE DATA", Toast.LENGTH_SHORT).show();
+            PostData pd = new PostData(mContext);
+
+            String loggedEmail = PreferenceManager.getDefaultSharedPreferences(mContext).getString("EMAIL", "FAILED");
+            pd.postHeartrate(loggedEmail, hArr);
+            count = 0;
+        }
     }
 
     public void regListener() {
@@ -65,6 +84,10 @@ public class HeartbeatHandler implements SensorEventListener {
     public boolean getHeartListenerStatus(){
 
         return isHeartListenerEnabled;
+    }
+
+    public double[] gethArr() {
+        return hArr;
     }
 }
 
