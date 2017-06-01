@@ -115,6 +115,41 @@ public class PostData {
 
         }
     }
+
+    public void postHeartrate( final String owner, final double[] h){
+        String URL = "http://datacollectapi20170528075302.azurewebsites.net/api/Accelerometer/PostCollection";
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        try {
+            JSONObject jsObj = new JSONObject();
+
+            jsObj.put("owner", owner);
+            JSONArray hList = new JSONArray(h);
+
+            jsObj.put("h", hList);
+
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, URL, jsObj,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Toast.makeText(context,"Posted:" + owner,Toast.LENGTH_LONG).show();
+                            } catch (Exception e) {
+                                Toast.makeText(context,e.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.e("Error: ", error.getMessage());
+                }
+            });
+            requestQueue.add(req);
+        }
+        catch(Exception e){
+
+        }
+    }
     public void sendRequest(){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String JSON_URL = "http://datacollectapi20170528075302.azurewebsites.net/api/Accelerometer/AllCollections";
